@@ -11,7 +11,8 @@ from sklearn.metrics import confusion_matrix, roc_curve, roc_auc_score
 import warnings
 warnings.filterwarnings('ignore')
 
-matplotlib.rcParams['font.family'] = ['DejaVu Sans', 'Microsoft JhengHei']
+matplotlib.rcParams['font.family'] = ['DejaVu Sans']
+matplotlib.rcParams['font.sans-serif'] = ['DejaVu Sans']
 matplotlib.rcParams['axes.unicode_minus'] = False
 
 # ── 頁面設定 ────────────────────────────────────────────
@@ -209,7 +210,7 @@ if model_loaded:
         ax.plot([0,1],[0,1],'--', color='#8892b0', lw=1)
         ax.set_xlabel('False Positive Rate', color='#ccd6f6')
         ax.set_ylabel('True Positive Rate', color='#ccd6f6')
-        ax.set_title('ROC 曲線', color='#ccd6f6', fontsize=13, fontweight='bold')
+        ax.set_title('ROC Curve', color='#ccd6f6', fontsize=13, fontweight='bold')
         ax.tick_params(colors='#8892b0')
         for spine in ax.spines.values():
             spine.set_edgecolor('#3a3f5c')
@@ -222,12 +223,12 @@ if model_loaded:
         fig, ax = plt.subplots(figsize=(5, 4), facecolor='#1e2130')
         ax.set_facecolor('#1e2130')
         sns.heatmap(cm, annot=True, fmt='d', cmap='Blues',
-                    xticklabels=['未違約','違約'],
-                    yticklabels=['未違約','違約'],
+                    xticklabels=['No Default', 'Default'],
+                    yticklabels=['No Default', 'Default'],
                     linewidths=0.5, ax=ax, cbar=False)
-        ax.set_title('混淆矩陣（測試集）', color='#ccd6f6', fontsize=12, fontweight='bold')
-        ax.set_xlabel('預測值', color='#ccd6f6')
-        ax.set_ylabel('實際值', color='#ccd6f6')
+        ax.set_title('Confusion Matrix', color='#ccd6f6', fontsize=12, fontweight='bold')
+        ax.set_xlabel('Predicted', color='#ccd6f6')
+        ax.set_ylabel('Actual', color='#ccd6f6')
         ax.tick_params(colors='#ccd6f6')
         st.pyplot(fig)
 
@@ -238,8 +239,8 @@ if model_loaded:
         fig, ax = plt.subplots(figsize=(7, 6), facecolor='#1e2130')
         ax.set_facecolor('#1e2130')
         bars = ax.barh(feat_df['特徵'], feat_df['重要性'], color='#64ffda', alpha=0.85)
-        ax.set_title('Top 15 特徵重要性', color='#ccd6f6', fontsize=13, fontweight='bold')
-        ax.set_xlabel('重要性分數', color='#ccd6f6')
+        ax.set_title('Top 15 Feature Importance', color='#ccd6f6', fontsize=13, fontweight='bold')
+        ax.set_xlabel('Importance Score', color='#ccd6f6')
         ax.tick_params(colors='#ccd6f6')
         for spine in ax.spines.values():
             spine.set_edgecolor('#3a3f5c')
@@ -289,12 +290,12 @@ if model_loaded:
             bar_color = '#ff4444' if pred == 1 else '#44ff88'
             ax.barh([0], [prob], color=bar_color, height=0.5, alpha=0.9)
             ax.axvline(threshold, color='#ffdd57', lw=2, linestyle='--')
-            ax.text(threshold, 0.35, f'門檻 {threshold}', color='#ffdd57',
+            ax.text(threshold, 0.35, f'Threshold {threshold}', color='#ffdd57',
                     fontsize=9, ha='center')
             ax.set_xlim(0, 1)
             ax.set_ylim(-0.5, 0.8)
             ax.axis('off')
-            ax.set_title('違約機率儀表', color='#ccd6f6', fontsize=11)
+            ax.set_title('Default Probability', color='#ccd6f6', fontsize=11)
             st.pyplot(fig)
 
             # 輸入摘要
