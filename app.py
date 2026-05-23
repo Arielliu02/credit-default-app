@@ -110,7 +110,7 @@ with st.sidebar:
     st.markdown('## ⚙️ 系統設定')
     filepath = st.text_input(
         '資料集路徑',
-        value='D:/輔大碩班/金融大數據/期末報告/default of credit card clients.xls'
+        value='default of credit card clients.xls'
     )
     threshold = st.slider('預測門檻（Threshold）', 0.1, 0.7, 0.35, 0.01,
                           help='降低門檻 → 更積極預測違約（Recall↑，Precision↓）')
